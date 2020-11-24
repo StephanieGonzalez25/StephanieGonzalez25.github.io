@@ -17,7 +17,7 @@
     - [TODO 8: Go Live](#todo-8-go-live)
 
 # Overview
-
+# (Skim over most of this, but read the section explaining how TODOs work carefully)
 We're going to create a simple game where a box moves across the screen at an increased speed after each click.
 
 <a href="https://output.jsbin.com/goyuhod/9" target="_blank"> When you are done it should look like this (Right Click --> Open in new tab) </a>
@@ -40,12 +40,13 @@ Our goal for this game is to learn how to bring together HTML, CSS, and JavaScri
 For this program you will be given _**stencil code**_ found in the `index.html` file. This stencil will set up the program for you so that you can focus on the take aways of this project.
 
 ### TODOs
+# (Super Important)
 To complete the assignment, below you'll find numbered **TODO** lesson steps.  Each TODO will take you one step closer to completing the project and often times you may be required to complete multiple TODOs to complete a feature of the program. 
 
-Please follow the instructions closely. Sometimes we may only show you code examples to make a point, and there is no code required to be entered. These instructions will often be labeled with **FIND**. In the steps that do require inputing some code, you will be explicitly told to do so. These steps will be labeled with **CODE:**. When entering code make sure to read the instructions closely to see _where_ you are supposed to write your code. Occasionally you will receive hints for the coding steps. These hints will be labeled with **HINTS:**.
+Please follow the instructions closely. Sometimes we may only show you code examples to make a point, and there is no code required to be entered. These instructions will often be labeled with **FIND**. In the steps that do require inputing some code, you will be explicitly told to do so. These steps will be labeled with **CODE:**. When entering code make sure to read the instructions closely to see _where_ you are supposed to write your code. Occasionally you will receive hints for the coding steps. These hints will be labeled with **HINTS:**. Finally **Save and Observe** sections give you explanations of what your code is doing. You should not actually do anything in these sections; just try to understand what is going on.
 
 # A note about jQuery
-
+# (Read if curious about how it all works)
 We are going to be using [jQuery](https://jquery.com) for this exercise. You can see that we've included it in our web page with the following HTML 
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -75,6 +76,7 @@ Since the width of the screen, the screen resolution, or the size of the window 
 <hr>
 
 # Lesson Steps
+# (Definitely read all of this)
 
 ## Run the program
 Right click on your `index.html` file and select "Preview with Live Server".
@@ -92,7 +94,7 @@ Using the `jQuery()` Function we can instead change the CSS with JavaScript code
 
 In this first step, we'll see how can manually move the box using CSS.
 
-**FIND:** The `<style>` tag within the `index.html`file. Here, the CSS that styles the box is defined. 
+**FIND:** The `<style>` tag within the `index.html` file. Here, the CSS that styles the box is defined. 
 
 **CODE:** Change the `left` CSS property to the following values one at a time. For each value, observe where the box ends up:
 - `200px`
@@ -139,6 +141,9 @@ function update() {
 **CODE:** Try `moveBoxTo(boardWidth);`
 
 Right now we are still hard-coding this position. We want this value to change over time so that the box moves on its own.
+
+## Important!
+There should only be one call to `moveBoxTo` inside your `update()` function **at any time during this project**. Always think about if a step is asking you to put in a new line of code before you do. Extra code can be just as bad as missing code.
 
 # TODO 2: Use Variables to remember where we've been
 
@@ -212,7 +217,7 @@ myVariable = myVariable + 10;
 ```
 
 ## Save and Observe
-Let's take a second to understand how this will work. Each time the `update` Function is called a new "Frame" is drawn. So, over time, our code will look like this:
+Let's take a second to understand how this will work. Remember, `update()` is called 20 times/second. Each time the `update` Function is called a new "Frame" is drawn. So, over time, our code will look like this:
 
 ```javascript
 // When you first create the Variable...
@@ -405,7 +410,7 @@ So far, we've introduced 2 Variables to our program: `positionX` and `points`. E
 
 # Check in with your instructor
 
-Before moving on to the last TODO, check in with your instructor and make sure that your code works properly. 
+Before moving on to the last TODO, check in with your instructor and make sure that your code works properly. **If you are working from home, then it is up to you to verify that everything is working as intended.**
 
 Your program should satisfy the following requirements:
 - The program should have no syntax errors. You can find syntax errors by opening the program in a new tab and opening the console (Right Click --> Inspect --> Console)
@@ -448,7 +453,7 @@ if (conditionIsTrue) {
 
 If you are having trouble figuring out how to change direction of the box, See the Hint below:
 
-## HINT: Changing Direction
+<details> <summary> HINT: Changing Direction </summary>
 
 If you need help understanding how we can change the direction of the box, take a look at the illustration below:
 
@@ -459,6 +464,8 @@ In **Frame 3.5**, _after_ the collision has been detected but before the next Fr
 - On each `update` Frame, `positionX` is re-calculated as `positionX + speed`. So, if a positive `speed` moves the box to the right, a negative `speed` would move the box to the left.
 
 In Frame 4, 5, and 6 we can see the box moving to the _left_ with this new negative `speed` until it collides with the left wall.
+
+</details>
 
 **CODE:** In the `{ code block }` of your conditional statement, modify your code to change `speed` to be negative. You can do this in any one of the following ways:
 - `speed = -speed;`
@@ -476,9 +483,52 @@ Now, using what you've learned about how to bounce the box off the right wall, i
         change speed to be positive
 
 **HINT:** `0` is the **MINIMUM** x-coordinate of the screen. Anything less than `0` will be off the screen to the left.
+
+If you can't get it to work properly, take a look at the below hints.
+
+## Hints
+<details> <summary> Hints for common issues </summary>
+
+## Issue 1: the box wiggles (right or left side).
+
+If you see your box doing this...
+<br>
+<img src="images/wiggle_bug.gif">
+
+Then that means that one or both of your boundary comparisons are incorrect. There are two possible places where this could go wrong.
+
+### Potential Problem 1: incorrect values in the comparison
+
+For both the left and right bounces, you must check the positionX against a single boundary. 
+
+For the right side, check the beginning of TODO 6 (before TODO 6.1) to see what variable stores the right boundary's x position.
+
+For the left side, check the first **HINT** in TODO 6.2 to see what the left boundary's x position is.
+
+### Potential Problem 2: incorrect operator.
+
+The other thing that can cause a wiggle is that the comparison operator ( '<' or '>' ) has been reversed. Try switching from one to the other and see if that fixes the problem.
+
+## Issue 2, the box flies away
+
+There are two possible reasons your box might keep going forever instead of bouncing. 
+
+The first is that the comparisons between positionX and the boundaries are incorrect. If you aren't sure they are correct, then check Issue 1's advice.
+
+The second possible cause is that you have not properly reversed the speed. Odds are you have it bouncing off of the right side but not the left. If that is the case then consider the following math:
+
+`5 * -1 = -5`
+
+So, you can reverse `5` by multiplying it by `-1`. How about reversing `-5`?
+
+`-5 * 1 = -5`
+
+Looks like multiplying `-5` with `1` still gives `-5`, which makes sense when you think about it. Figure out what you should put instead of a `1` to turn a negative number into a positive one, and that should solve your problem.
+
+</details>
  
 # TODO 7: Fix a bug!
-
+# (It's a lot of reading, but be sure to at least skim it to make sure you understand the issue)
 Great work! It seems like our Bouncing Box game is complete. However, we've created a _bug_ in our program that we need to squash! Thankfully, this bug doesn't break the program completely, it just makes it behave in a way that we'd like to change. 
 
 Okay, to understand this bug, imagine that the game has just begun and the box is moving to the right. We know that `speed` is `10` and `positionX` is `0`.  Each time a new frame is drawn, we execute the code below:
@@ -515,6 +565,12 @@ ELSE IF speed is a negative number:
     subtract 3 from speed
 ```
  
+Okay, time for your instructions.
+
+**FIND:** The `handleBoxClick` function where you increase the speed.
+
+**CODE:** Turn the above pseudocode into actual code and place it at the end of your `handleBoxClick` function. **Be sure to remove your old line of code that increased speed once you've put in the new code.**
+
 <hr>
 
 # Extra Challenges
@@ -624,7 +680,7 @@ In your bash terminal, enter the following commands, pressing ENTER after each o
 
 `git add .`
 
-`git commit -m 'add portfolio.html file'`
+`git commit -m 'add bouncing box'`
 
 `git push`
 
