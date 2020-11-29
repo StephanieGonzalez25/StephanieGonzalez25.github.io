@@ -25,8 +25,9 @@ var init = function (window) {
 
         // TODO 2 : Create a function that draws a circle 
             function drawCircle() {
-                    
+
             }
+                    
 
 
 
@@ -36,6 +37,7 @@ var init = function (window) {
             drawCircle();
             drawCircle();
             drawCircle();
+            
 
         ////////////////////////////////////////////////////////////
         ///////////////// PROGRAM LOGIC ////////////////////////////
